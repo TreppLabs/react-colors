@@ -29,44 +29,6 @@ function randomColor() {
   return mutedColors[Math.floor(Math.random() * mutedColors.length)]
 }
 
-const Menu = () => {
-  const [showMenu, setShowMenu] = useState(false);
-
-  const toggleMenu = () => setShowMenu(!showMenu);
-
-  return (
-    <div className="relative">
-      <button
-        className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        onMouseEnter={() => setShowMenu(true)}
-      >
-        Menu
-      </button>
-      {showMenu && (
-        <div
-          className="absolute right-0 z-10 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100"
-          onMouseLeave={() => setShowMenu(false)}
-        >
-          <div className="py-1" onClick={() => setShowMenu(false)}>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 bg-gray hover:bg-blue-800 hover:text-gray-900"
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-            >
-              About
-            </a>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
 
 
 const App = () => {
@@ -133,7 +95,7 @@ const App = () => {
  
     return (
       <>
-        <div
+        <div className="col-span-1"
         style={{
           width: 100,
           height: 100,
@@ -155,23 +117,34 @@ const App = () => {
     setSquares(newSquares.concat(<Square key={index} idx={index} />));
   }
 
+  const ColoredRectangle = ({ color, width, height }) => {
+    
+    return <div className="col-span-1" style={{ backgroundColor: color, width, height }} />;
+  };
+
+  const gcolors = ["red", "green", "blue", "yellow", "purple", "pink", "teal", "orange", "gray"];
 
   return (
     <div>
-      <table>
-        <tbody>
-        <tr>
-          {squares.map((sq, index) => {
-            return(<td key={index}>{sq}</td>)
-          })}
-        </tr>
-        </tbody>
-      </table>
       <button onClick={() => addSquare()}>Add box</button>
+      {/* <div className="grid-container grid grid-cols-3 gap-4">
+        {gcolors.map((color, index) => (
+          <ColoredRectangle key={index} color={color} width="200px" height="100px" />
+        ))}
+      </div> */}
+      <div>
+        <table>
+          <tbody>
+          <tr>
+            {squares.map((sq, index) => {
+              return(<td key={index}>{sq}</td>)
+            })}
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-
-
 } //end of APP
 
 export default App;
