@@ -141,9 +141,6 @@ const App = () => {
         }} >
         {props.idx}
         </div>
-        <div>
-          <button onClick={() => setColor(randomColor())}>Change Color</button>
-        </div>
         <div className="container mx-auto">
           <ColorPicker />
         </div>
@@ -160,23 +157,18 @@ const App = () => {
 
 
   return (
-    <>
-      <div>
-        <table>
-          <tbody>
-          <tr>
-            {squares.map((sq, index) => {
-              return(<td key={index}>{sq}</td>)
-            })}
-          </tr>
-          </tbody>
-        </table>
-        <button onClick={() => addSquare()}>Add box</button>
-      </div>
-      <div className="container mx-auto">
-          <Menu />
-        </div>
-    </>
+    <div>
+      <table>
+        <tbody>
+        <tr>
+          {squares.map((sq, index) => {
+            return(<td key={index}>{sq}</td>)
+          })}
+        </tr>
+        </tbody>
+      </table>
+      <button onClick={() => addSquare()}>Add box</button>
+    </div>
   );
 
 
