@@ -29,44 +29,6 @@ function randomColor() {
   return mutedColors[Math.floor(Math.random() * mutedColors.length)]
 }
 
-const Menu = () => {
-  const [showMenu, setShowMenu] = useState(false);
-
-  const toggleMenu = () => setShowMenu(!showMenu);
-
-  return (
-    <div className="relative">
-      <button
-        className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        onMouseEnter={() => setShowMenu(true)}
-      >
-        Menu
-      </button>
-      {showMenu && (
-        <div
-          className="absolute right-0 z-10 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100"
-          onMouseLeave={() => setShowMenu(false)}
-        >
-          <div className="py-1" onClick={() => setShowMenu(false)}>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 bg-gray hover:bg-blue-800 hover:text-gray-900"
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-            >
-              About
-            </a>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
 
 
 const App = () => {
@@ -76,16 +38,18 @@ const App = () => {
 
     const ColorPicker = () => {
       const [showColorPicker, setShowColorPicker] = useState(false);
-
+      const swatchesPerRow = 5;
+      const swatchSize = 25; 
+      let swatchCount = 0;
 
       const ColorPickerSwatch = (props) => {
-        const myColor = mutedColors[props.index];
+        const myColor = randomColor();
         return (
           <div
           className='rounded-lg'
           style={{
-            width: 25,
-            height: 25,
+            width: swatchSize,
+            height: swatchSize,
             backgroundColor: myColor
           }} 
             onClick={() => setColor(myColor)}
@@ -93,9 +57,9 @@ const App = () => {
           </div>
         );
       }
-      const c1 = randomColor();
 
       return (
+        // TODO : figure out why none of my tailwind CSS stuff seems to be working
         <div className="relative">
           <button
             className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -110,18 +74,19 @@ const App = () => {
               <tbody>
                 <tr>
                   <td>
-                    <ColorPickerSwatch key={0} index={0}></ColorPickerSwatch>
+                    <ColorPickerSwatch key={0}></ColorPickerSwatch>
                   </td>
                   <td>
-                    <ColorPickerSwatch key={1} index={1}></ColorPickerSwatch>
+                    <ColorPickerSwatch key={1}></ColorPickerSwatch>
                   </td>
                 </tr>
+                {false && swatchCount++}
                 <tr>
                   <td>
-                    <ColorPickerSwatch key={2} index={2}></ColorPickerSwatch>
+                    <ColorPickerSwatch key={2}></ColorPickerSwatch>
                   </td>
                   <td>
-                    <ColorPickerSwatch key={3} index={3}></ColorPickerSwatch>
+                    <ColorPickerSwatch key={3}></ColorPickerSwatch>
                   </td>
                 </tr>
               </tbody>
@@ -133,16 +98,13 @@ const App = () => {
  
     return (
       <>
-        <div
+        <div className="col-span-1"
         style={{
           width: 100,
           height: 100,
           backgroundColor: color
         }} >
         {props.idx}
-        </div>
-        <div>
-          <button onClick={() => setColor(randomColor())}>Change Color</button>
         </div>
         <div className="container mx-auto">
           <ColorPicker />
@@ -158,9 +120,16 @@ const App = () => {
     setSquares(newSquares.concat(<Square key={index} idx={index} />));
   }
 
+  const ColoredRectangle = ({ color, width, height }) => {
+    
+    return <div className="col-span-1" style={{ backgroundColor: color, width, height }} />;
+  };
+
+  const gcolors = ["red", "green", "blue", "yellow", "purple", "pink", "teal", "orange", "gray"];
 
   return (
-    <>
+    <div>
+      <button onClick={() => addSquare()}>Add box</button>
       <div>
         <table>
           <tbody>
@@ -171,15 +140,9 @@ const App = () => {
           </tr>
           </tbody>
         </table>
-        <button onClick={() => addSquare()}>Add box</button>
       </div>
-      <div className="container mx-auto">
-          <Menu />
-        </div>
-    </>
+    </div>
   );
-
-
 } //end of APP
 
 export default App;
