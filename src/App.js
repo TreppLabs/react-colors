@@ -38,16 +38,18 @@ const App = () => {
 
     const ColorPicker = () => {
       const [showColorPicker, setShowColorPicker] = useState(false);
-
+      const swatchesPerRow = 5;
+      const swatchSize = 25; 
+      let swatchCount = 0;
 
       const ColorPickerSwatch = (props) => {
-        const myColor = mutedColors[props.index];
+        const myColor = randomColor();
         return (
           <div
           className='rounded-lg'
           style={{
-            width: 25,
-            height: 25,
+            width: swatchSize,
+            height: swatchSize,
             backgroundColor: myColor
           }} 
             onClick={() => setColor(myColor)}
@@ -55,9 +57,9 @@ const App = () => {
           </div>
         );
       }
-      const c1 = randomColor();
 
       return (
+        // TODO : figure out why none of my tailwind CSS stuff seems to be working
         <div className="relative">
           <button
             className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -72,18 +74,19 @@ const App = () => {
               <tbody>
                 <tr>
                   <td>
-                    <ColorPickerSwatch key={0} index={0}></ColorPickerSwatch>
+                    <ColorPickerSwatch key={0}></ColorPickerSwatch>
                   </td>
                   <td>
-                    <ColorPickerSwatch key={1} index={1}></ColorPickerSwatch>
+                    <ColorPickerSwatch key={1}></ColorPickerSwatch>
                   </td>
                 </tr>
+                {false && swatchCount++}
                 <tr>
                   <td>
-                    <ColorPickerSwatch key={2} index={2}></ColorPickerSwatch>
+                    <ColorPickerSwatch key={2}></ColorPickerSwatch>
                   </td>
                   <td>
-                    <ColorPickerSwatch key={3} index={3}></ColorPickerSwatch>
+                    <ColorPickerSwatch key={3}></ColorPickerSwatch>
                   </td>
                 </tr>
               </tbody>
@@ -127,11 +130,6 @@ const App = () => {
   return (
     <div>
       <button onClick={() => addSquare()}>Add box</button>
-      {/* <div className="grid-container grid grid-cols-3 gap-4">
-        {gcolors.map((color, index) => (
-          <ColoredRectangle key={index} color={color} width="200px" height="100px" />
-        ))}
-      </div> */}
       <div>
         <table>
           <tbody>
